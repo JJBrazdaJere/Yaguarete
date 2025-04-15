@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yaguareté Alfajores</title>
+    <link rel="stylesheet" href="estilos/estilos.css" />
+</head>
+<body>
+    <div class="fondo"></div>
+    <header>
+        <h1>Yaguareté</h1>
+        <h2>.</h2>
+        <h2>.</h2>
+        <h2>.</h2>
+    </header>
+
+    <main>
+        <section id="catalogo">
+            <h2></h2>
+            <div class="producto">
+                <img src="imagenes/alfajor_clasico.png" alt="Alfajor Clásico" />
+                <p>Clásico - RD$120</p>
+                <input type="number" min="0" value="0" data-precio="120" />
+            </div>
+            <div class="producto">
+                <img src="imagenes/alfajor_coco.png" alt="Alfajor Coco" />
+                <p>Coco - RD$120</p>
+                <input type="number" min="0" value="0" data-precio="120" />
+            </div>
+            <div class="producto">
+                <img src="imagenes/alfajor_maicena.png" alt="Alfajor Maicena" />
+                <p>Maicena (2x) - RD$140</p>
+                <input type="number" min="0" value="0" data-precio="140" step="2" />
+            </div>
+            <div class="producto">
+                <img src="imagenes/alfajor_mani.png" alt="Alfajor Maní" />
+                <p>Maní - RD$130</p>
+                <input type="number" min="0" value="0" data-precio="130" />
+            </div>
+            <div class="producto">
+                <img src="imagenes/conitos.png" alt="Conitos" />
+                <p>Conitos x8 (4 blancos y 4 semi-amargo) - RD$800</p>
+                <input type="number" min="0" value="0" data-precio="800" step="8" />
+            </div>
+            <div class="producto">
+                <p>Caja de Maicena x8 - RD$500</p>
+                <input type="number" min="0" value="0" data-precio="500" />
+            </div>
+            <div class="producto">
+                <p>Caja Mixta (2 de cada sabor) - RD$870</p>
+                <input type="number" min="0" value="0" data-precio="870" />
+            </div>
+            <div class="producto">
+                <p>Caja Mixta a elección - RD$900</p>
+                <input type="number" min="0" value="0" data-precio="900" />
+            </div>
+        </section>
+
+        <section id="resumen">
+            <h2>Total: RD$<span id="total">0</span></h2>
+            <a id="encargar" href="#" target="_blank">Encargar por WhatsApp</a>
+        </section>
+    </main>
+
+    <script src="scripts/script.js"></script>
+</body>
+</html>
