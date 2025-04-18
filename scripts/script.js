@@ -14,6 +14,7 @@ function actualizarTotal() {
             const descripcion = input.previousElementSibling.textContent.trim();
             mensaje += `- ${cantidad} x ${descripcion}%0A`;
             total += cantidad * precio;
+            cantidad = 0; 
         }
     });
     totalEl.textContent = total;
