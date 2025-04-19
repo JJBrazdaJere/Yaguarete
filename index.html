@@ -20,12 +20,15 @@
     <main>
         <section id="catalogo">
           <div class="producto">
+            <img src="imagenes/alfajor_maicena.gif" alt="Alfajor Maicena" />
+              
             <h3 class="nombre">Clásico</h3>
             <p class="descripcion">Dos tapas de cacao rellenas de dulce de leche al ron, bañado en chocolate semi-amargo</p>
             <h3 class="precio">RD$120</h3>
+              
             <div class="cantidad-control">
-              <button onclick="cambiarCantidad(this, -1)">−</button>
               <input type="number" min="0" value="0" data-precio="120" />
+              <button onclick="cambiarCantidad(this, -1)">−</button>
               <button onclick="cambiarCantidad(this, 1)">+</button>
             </div>
           </div>
