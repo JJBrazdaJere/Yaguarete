@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<title>GastaMejor — Pruebas y datos de ejemplo</title>
+<style>
+  :root {
+    --tinta: #0f172a; --gris: #64748b; --linea: #e2e8f0; --fondo: #f8fafc;
+    --verde: #059669; --verde-bg: #ecfdf5; --rojo: #dc2626; --rojo-bg: #fef2f2;
+    --azul: #0284c7; --necesidad: #0284c7; --deseo: #d97706; --ahorro: #10b981;
+    --radio: 14px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--fondo); color: var(--tinta);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .contenedor { max-width: 760px; margin: 0 auto; padding: 18px 14px 60px; }
+  header.cab { padding: 8px 0 14px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  h2 { font-size: 1.15rem; margin: 26px 0 10px; }
+  h3 { font-size: 1rem; margin: 16px 0 8px; }
+  p { margin: 0 0 10px; }
+  .nota { color: var(--gris); font-size: .92rem; }
+  .tarjeta {
+    background: #fff; border: 1px solid var(--linea); border-radius: var(--radio);
+    padding: 14px; margin-bottom: 14px;
+  }
+  .barra-resumen {
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    position: sticky; top: 0; z-index: 5;
+    background: #fff; border: 1px solid var(--linea); border-radius: var(--radio);
+    padding: 12px 14px; margin-bottom: 6px;
+  }
+  .pastilla { font-weight: 700; padding: 5px 11px; border-radius: 999px; font-size: .9rem; }
+  .pastilla.ok { background: var(--verde-bg); color: var(--verde); }
+  .pastilla.fallo { background: var(--rojo-bg); color: var(--rojo); }
+  .pastilla.neutra { background: #eef2ff; color: #4338ca; }
+  .suite { border-left: 3px solid var(--azul); padding-left: 10px; }
+  .prueba {
+    display: flex; gap: 8px; align-items: flex-start; padding: 5px 0;
+    border-bottom: 1px dashed var(--linea); font-size: .93rem;
+  }
+  .prueba:last-child { border-bottom: 0; }
+  .prueba .marca { flex: 0 0 auto; font-weight: 700; }
+  .prueba.ok .marca { color: var(--verde); }
+  .prueba.fallo .marca { color: var(--rojo); }
+  .prueba.fallo { background: var(--rojo-bg); margin: 2px -6px; padding: 5px 6px; border-radius: 8px; }
+  .detalle { color: var(--rojo); font-weight: 600; }
+  .botones { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
+  button, .btn {
+    font: inherit; cursor: pointer; border-radius: 10px; border: 1px solid var(--linea);
+    background: #fff; color: var(--tinta); padding: 11px 14px; min-height: 44px;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  }
+  button.primario, .btn.primario { background: var(--azul); border-color: var(--azul); color: #fff; font-weight: 600; }
+  button:hover, .btn:hover { filter: brightness(.97); }
+  table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+  th, td { text-align: right; padding: 7px 8px; border-bottom: 1px solid var(--linea); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { color: var(--gris); font-weight: 600; }
+  .mes { font-weight: 600; }
+  .perfil { font-size: .8rem; color: var(--gris); }
+  .tabla-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  pre {
+    background: #0f172a; color: #e2e8f0; border-radius: 10px; padding: 12px;
+    overflow: auto; font-size: .78rem; max-height: 320px; margin: 0;
+  }
+  #salida-txt { position: absolute; left: -9999px; width: 1px; height: 1px; }
+  .estado-msg { font-weight: 600; color: var(--azul); min-height: 1.4em; }
+  details summary { cursor: pointer; color: var(--azul); }
+  .aviso-file { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+</style>
+</head>
+<body>
+<div class="contenedor">
+
+  <header class="cab">
+    <h1>🧪 Pruebas de GastaMejor</h1>
+    <p class="nota">Ejecuta todas las funciones de la app en tu navegador y te muestra el resultado. Además, acá tenés los <strong>datos de ejemplo</strong> (12 meses de progreso) listos para cargar y chequear en el calendario.</p>
+  </header>
+
+  <div id="reporte" class="tarjeta">
+    <p class="nota">Ejecutando pruebas…</p>
+  </div>
+
+  <h2>📊 Datos de ejemplo (12 meses)</h2>
+  <div class="tarjeta">
+    <p class="nota">La historia de <strong>Ana</strong>: arranca en modo <strong>Gastador</strong> y termina en <strong>Equilibrado</strong>, con el ahorro subiendo mes a mes.</p>
+    <div class="tabla-scroll">
+      <table id="tabla-ejemplo">
+        <thead>
+          <tr><th>Mes</th><th>Ingreso</th><th>Nec.</th><th>Deseos</th><th>Ahorro</th><th>Perfil</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="botones">
+      <button id="btn-cargar" class="primario" type="button">▶️ Cargar ejemplo en la app</button>
+      <a id="btn-abrir" class="btn" href="index.html">Abrir la app →</a>
+      <button id="btn-borrar" type="button">🧹 Borrar ejemplo</button>
+      <button id="btn-copiar" type="button">📋 Copiar JSON</button>
+    </div>
+    <p id="estado-msg" class="estado-msg" role="status"></p>
+    <details>
+      <summary>Ver el JSON crudo</summary>
+      <pre id="json-ejemplo"></pre>
+    </details>
+  </div>
+
+  <div class="tarjeta aviso-file" id="aviso-file" hidden>
+    ⚠️ Si abriste este archivo con doble clic (<code>file://</code>), el navegador puede bloquear la ejecución de las pruebas dentro del marco. Abrilo con un servidor local (<code>python -m http.server</code>) o desde la web publicada.
+  </div>
+</div>
+
+<!-- La app corre acá adentro; las pruebas se inyectan en su mismo "realm" -->
+<iframe id="marco" title="App GastaMejor" hidden></iframe>
+<textarea id="salida-txt" readonly aria-hidden="true"></textarea>
+
+<script src="datos-ejemplo.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  /* ---------- Datos de ejemplo: tabla + JSON + botones ---------- */
+
+  var progreso = window.EJEMPLO_PROGRESO || [];
+  var tbody = document.querySelector("#tabla-ejemplo tbody");
+  var fmt = function (n) { return new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(n); };
+
+  progreso.forEach(function (r) {
+    var tr = document.createElement("tr");
+    tr.innerHTML =
+      '<td class="mes">' + esc(r.mes) + "</td>" +
+      "<td>" + esc(fmt(r.monto)) + "</td>" +
+      "<td>" + r.pctGrupos.necesidad + "%</td>" +
+      "<td>" + r.pctGrupos.deseo + "%</td>" +
+      "<td>" + r.pctGrupos.ahorro + "%</td>" +
+      '<td class="perfil">' + esc(r.perfil || "—") + "</td>";
+    tbody.appendChild(tr);
+  });
+
+  document.querySelector("#json-ejemplo").textContent = JSON.stringify(progreso, null, 2);
+
+  var msg = document.querySelector("#estado-msg");
+  document.querySelector("#btn-cargar").addEventListener("click", function () {
+    var n = typeof window.cargarEjemplo === "function" ? window.cargarEjemplo() : 0;
+    msg.textContent = "✅ Ejemplo cargado (" + n + " meses). Tocá “Abrir la app” y mirá el panel 📅 Historial.";
+  });
+  document.querySelector("#btn-borrar").addEventListener("click", function () {
+    if (typeof window.borrarEjemplo === "function") window.borrarEjemplo();
+    msg.textContent = "🧹 Ejemplo borrado de este navegador.";
+  });
+  document.querySelector("#btn-copiar").addEventListener("click", function () {
+    var texto = JSON.stringify(progreso, null, 2);
+    try {
+      navigator.clipboard.writeText(texto);
+      msg.textContent = "📋 JSON copiado.";
+    } catch (_) {
+      msg.textContent = "Seleccioná el JSON y copialo a mano.";
+    }
+  });
+
+  /* ---------- Reporte de pruebas ---------- */
+
+  function pintarReporte(resumen) {
+    var cont = document.querySelector("#reporte");
+    var suites = {};
+    var orden = [];
+    resumen.resultados.forEach(function (r) {
+      if (!suites[r.suite]) { suites[r.suite] = []; orden.push(r.suite); }
+      suites[r.suite].push(r);
+    });
+
+    var html = '<div class="barra-resumen">' +
+      '<span class="pastilla ' + (resumen.fallo ? "fallo" : "ok") + '">' +
+        (resumen.fallo ? "FALLA" : "OK") + "</span>" +
+      '<span class="pastilla ok">PASS: ' + resumen.ok + "</span>" +
+      '<span class="pastilla ' + (resumen.fallo ? "fallo" : "neutra") + '">FAIL: ' + resumen.fallo + "</span>" +
+      '<span class="pastilla neutra">TOTAL: ' + resumen.total + "</span>" +
+      "</div>";
+
+    orden.forEach(function (nombre) {
+      var items = suites[nombre];
+      var fallos = items.filter(function (i) { return !i.ok; }).length;
+      html += '<div class="suite">';
+      html += '<h3>' + esc(nombre) + " <span class=\"nota\">(" + (items.length - fallos) + "/" + items.length + ")</span></h3>";
+      items.forEach(function (i) {
+        html += '<div class="prueba ' + (i.ok ? "ok" : "fallo") + '" data-ok="' + (i.ok ? "1" : "0") + '">' +
+          '<span class="marca">' + (i.ok ? "✔" : "✘") + "</span>" +
+          "<span>" + esc(i.nombre) +
+            (i.ok ? "" : '<br><span class="detalle">' + esc(i.detalle) + "</span>") +
+          "</span></div>";
+      });
+      html += "</div>";
+    });
+    cont.innerHTML = html;
+
+    // Salida de texto plano para el runner en PowerShell.
+    var lineas = ["RESUMEN|ok=" + resumen.ok + "|fallo=" + resumen.fallo + "|total=" + resumen.total];
+    if (resumen.fallo) {
+      resumen.resultados.forEach(function (i) {
+        if (!i.ok) lineas.push("FALLO|" + i.suite + "|" + i.nombre + "|" + i.detalle);
+      });
+    }
+    document.querySelector("#salida-txt").textContent = lineas.join("\n");
+    document.title = "GastaMejor — Pruebas: PASS " + resumen.ok + " / FAIL " + resumen.fallo;
+  }
+
+  window.__mostrarResultados = function (resumen) {
+    try { pintarReporte(resumen); } catch (e) {
+      document.querySelector("#reporte").innerHTML = '<p class="detalle">Error al dibujar el reporte: ' + esc(e && e.message) + "</p>";
+    }
+  };
+
+  /* ---------- Inyectar pruebas en el iframe ---------- */
+
+  var marco = document.querySelector("#marco");
+
+  function cargarScript(win, src, cb) {
+    var s = win.document.createElement("script");
+    s.src = src;
+    s.onload = function () { cb(null); };
+    s.onerror = function () { cb("No se pudo cargar " + src); };
+    (win.document.body || win.document.documentElement).appendChild(s);
+  }
+
+  marco.addEventListener("load", function () {
+    var win;
+    try {
+      win = marco.contentWindow;
+      void win.document; // fuerza el chequeo de mismo origen
+    } catch (e) {
+      document.querySelector("#aviso-file").hidden = false;
+      document.querySelector("#reporte").innerHTML =
+        '<p class="detalle">No se pudo acceder a la app dentro del marco (origen bloqueado).</p>';
+      return;
+    }
+    cargarScript(win, "datos-ejemplo.js", function () {
+      cargarScript(win, "pruebas.js", function (err) {
+        if (err) {
+          document.querySelector("#reporte").innerHTML = '<p class="detalle">' + esc(err) + "</p>";
+        }
+      });
+    });
+  });
+
+  // Respaldo: si a los pocos segundos no hay resultados, avisar.
+  setTimeout(function () {
+    if (!window.__RESULTADOS_PRUEBAS__ && document.querySelector("#reporte").textContent.indexOf("Ejecutando") !== -1) {
+      document.querySelector("#reporte").innerHTML =
+        '<p class="detalle">Las pruebas no respondieron. Abrilo con un servidor local o desde la web publicada.</p>';
+    }
+  }, 15000);
+
+  marco.src = "index.html";
+})();
+</script>
+</body>
+</html>

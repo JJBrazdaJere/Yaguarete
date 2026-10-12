@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0284c7">
+<title>GastaMejor — Tutorial</title>
+<style>
+  :root {
+    --tinta: #0f172a; --gris: #64748b; --linea: #e2e8f0; --fondo: #f8fafc;
+    --azul: #0284c7; --azul-osc: #075985; --necesidad: #0284c7; --deseo: #d97706;
+    --ahorro: #10b981; --rojo: #dc2626; --verde: #059669; --radio: 16px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--fondo); color: var(--tinta);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .contenedor { max-width: 780px; margin: 0 auto; padding: 18px 14px 80px; }
+  h1 { font-size: 1.7rem; line-height: 1.2; margin: 0 0 6px; }
+  h2 { font-size: 1.25rem; margin: 34px 0 10px; padding-top: 8px; border-top: 1px solid var(--linea); }
+  h3 { font-size: 1.05rem; margin: 18px 0 6px; }
+  p, li { margin: 0 0 10px; }
+  ul, ol { padding-left: 20px; }
+  .nota { color: var(--gris); font-size: .93rem; }
+  strong { color: var(--azul-osc); }
+  .tarjeta { background: #fff; border: 1px solid var(--linea); border-radius: var(--radio); padding: 16px; margin-bottom: 14px; }
+  .hero { background: linear-gradient(140deg, #0284c7, #075985); color: #fff; border: 0; }
+  .hero h1 { color: #fff; }
+  .hero p { color: #e0f2fe; }
+  .hero .nota { color: #bae6fd; }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+  .nav a { font-size: .86rem; text-decoration: none; color: var(--azul-osc); background: #fff; border: 1px solid var(--linea); border-radius: 999px; padding: 7px 12px; }
+  .botones { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+  button, .btn {
+    font: inherit; cursor: pointer; border-radius: 12px; border: 1px solid var(--linea);
+    background: #fff; color: var(--tinta); padding: 12px 16px; min-height: 48px;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 600;
+  }
+  button.primario, .btn.primario { background: var(--azul); border-color: var(--azul); color: #fff; }
+  button:hover, .btn:hover { filter: brightness(.97); }
+  .paso { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: var(--azul); color: #fff; font-weight: 700; font-size: .95rem; margin-right: 8px; flex: 0 0 auto; }
+  .fila-paso { display: flex; align-items: center; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+  th, td { text-align: right; padding: 7px 8px; border-bottom: 1px solid var(--linea); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { color: var(--gris); }
+  .tabla-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { font-size: .82rem; padding: 6px 11px; border-radius: 999px; font-weight: 600; }
+  .chip.n { background: #e0f2fe; color: #075985; }
+  .chip.d { background: #fef3c7; color: #92400e; }
+  .chip.a { background: #d1fae5; color: #065f46; }
+  .estado-msg { font-weight: 600; color: var(--azul); min-height: 1.5em; }
+  .aviso { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; border-radius: 12px; padding: 12px; font-size: .9rem; }
+  .kbd { font-family: ui-monospace, Consolas, monospace; background: #eef2f7; border: 1px solid var(--linea); border-radius: 6px; padding: 1px 6px; font-size: .85em; }
+  svg.mini { width: 100%; height: auto; display: block; }
+  footer { color: var(--gris); font-size: .85rem; text-align: center; margin-top: 30px; }
+</style>
+</head>
+<body>
+<div class="contenedor">
+
+  <div class="tarjeta hero">
+    <h1>💸 GastaMejor — Tutorial</h1>
+    <p>Escribís tu dinero del mes y la app te dice cuánto destinar a cada gasto: <strong>necesidades, deseos y ahorro</strong>. Este tutorial te enseña, paso a paso, todo lo que podés hacer.</p>
+    <p class="nota">¿Querés verlo funcionando ya? Cargá el ejemplo de 12 meses con el botón del final.</p>
+    <p class="nota">💡 <strong>La primera vez</strong> que usás la app (sin historial) se abre sola un <strong>tutorial guiado</strong>: resalta cada botón y te explica para qué sirve. Podés volver a verlo desde <em>Mis datos → 🎓 Ver el tutorial guiado</em>.</p>
+  </div>
+
+  <div class="nav">
+    <a href="#p1">1 · Tu dinero</a>
+    <a href="#p2">2 · El resultado</a>
+    <a href="#p3">3 · Ajustar</a>
+    <a href="#p4">4 · Perfiles</a>
+    <a href="#p5">5 · Plan</a>
+    <a href="#p6">6 · Consejero</a>
+    <a href="#p7">7 · Historial</a>
+    <a href="#p8">8 · Compartir</a>
+    <a href="#historia">🅰️ La historia de Ana</a>
+  </div>
+
+  <h2 id="p1"><span class="fila-paso"><span class="paso">1</span> Escribí tu dinero y elegí la moneda</span></h2>
+  <div class="tarjeta">
+    <ul>
+      <li><strong>Tu dinero de este mes</strong>: escribí el monto en el campo grande. Se formatea solo con el estilo argentino <span class="kbd">1.000.000,00</span> (puntos para miles, coma para decimales).</li>
+      <li><strong>Moneda</strong>: por defecto <strong>peso argentino (ARS)</strong>. Podés cambiarla (USD, EUR, MXN…) en el selector de abajo.</li>
+      <li>Tocá <strong>“Distribuir mi dinero”</strong> y listo.</li>
+    </ul>
+    <p class="nota">Si el monto está vacío o es cero, la app te avisa con un mensaje rojo.</p>
+  </div>
+
+  <h2 id="p2"><span class="fila-paso"><span class="paso">2</span> Leé el resultado</span></h2>
+  <div class="tarjeta">
+    <ul>
+      <li><strong>Resumen</strong> arriba: tu ingreso y el total repartido.</li>
+      <li><strong>Gráfico de torta</strong>: cada categoría con su color. En el centro ves el <strong>% del ingreso</strong> que usás.</li>
+      <li><strong>Leyenda</strong>: nombre, porcentaje y monto de cada categoría.</li>
+      <li><strong>Subtotales</strong>: agrupados en <span class="chip n">Necesidades</span> <span class="chip d">Deseos</span> <span class="chip a">Ahorro</span>, con el % que representa cada grupo.</li>
+    </ul>
+    <h3>Los tres avisos posibles</h3>
+    <ul>
+      <li><strong>Verde</strong> — “Reparto completo: usas el 100%”: todo tu dinero está asignado.</li>
+      <li><strong>Amarillo</strong> — “Sin designar”: hay plata que no asignaste a ninguna categoría (se ve en gris en la torta). Podés destinar esa plata al ahorro o repartirla.</li>
+      <li><strong>Rojo</strong> — “Tus gastos fijos superan tu ingreso”: los gastos fijos son más que lo que ganás. Hay que bajarlos o subir el ingreso.</li>
+    </ul>
+    <p class="nota">Con el botón <strong>“Guardar este mes”</strong> pasás este reparto al Historial (paso 7).</p>
+  </div>
+
+  <h2 id="p3"><span class="fila-paso"><span class="paso">3</span> Ajustá tus categorías</span></h2>
+  <div class="tarjeta">
+    <p>Cada categoría puede repartirse de dos formas, con el interruptor <strong>%</strong> / <strong>$</strong>:</p>
+    <ul>
+      <li><strong>%</strong> (porcentaje): un peso relativo. El dinero que sobra después de los fijos se reparte y se estira para usar <em>todo</em> el ingreso.</li>
+      <li><strong>$</strong> (monto fijo): un monto exacto que no cambia (ej. el alquiler). Los fijos se reservan <strong>primero</strong>.</li>
+    </ul>
+    <h3>Guardar en dólares</h3>
+    <p>En el grupo <strong>Ahorro</strong>, un monto fijo se puede cargar en <strong>US$</strong>. Tocá el botón <strong>AR$ / US$</strong> de la categoría y la app lo convierte con la <strong>cotización del dólar del día</strong> (Bolsa/MEP por defecto). Si no hay internet, usa el último valor guardado o uno que cargues a mano.</p>
+    <h3>Agregar y quitar</h3>
+    <ul>
+      <li><strong>+ Agregar categoría en blanco</strong>: crea una fila para completar a mano.</li>
+      <li><strong>📖 Agregar del catálogo</strong>: sugerencias argentinas listas para tocar (transporte con y sin auto, delivery, servicios, deudas, ahorro en dólares…). <strong>No duplica</strong> las que ya tenés.</li>
+      <li>La <strong>✕</strong> de cada fila elimina la categoría (siempre queda al menos una).</li>
+      <li>Abajo, la línea <strong>“Asignado del ingreso”</strong> te muestra el total y cuánto queda por asignar.</li>
+    </ul>
+    <p>Tocá <strong>“Guardar y volver”</strong> para conservar los cambios en este dispositivo.</p>
+  </div>
+
+  <h2 id="p4"><span class="fila-paso"><span class="paso">4</span> Perfiles de reparto</span></h2>
+  <div class="tarjeta">
+    <p>Son atajos de un toque que reparten tus <strong>porcentajes</strong> por grupo (los montos fijos no se tocan):</p>
+    <div class="tabla-scroll">
+      <table>
+        <thead><tr><th>Perfil</th><th>Necesidades</th><th>Deseos</th><th>Ahorro</th></tr></thead>
+        <tbody>
+          <tr><td>🎈 Gastador</td><td>60%</td><td>30%</td><td>10%</td></tr>
+          <tr><td>⚖️ Equilibrado</td><td>50%</td><td>30%</td><td>20%</td></tr>
+          <tr><td>🛡️ Conservador</td><td>45%</td><td>25%</td><td>30%</td></tr>
+          <tr><td>🏦 Cauto</td><td>40%</td><td>20%</td><td>40%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota">La app detecta tu <strong>perfil actual</strong> y lo muestra abajo. El perfil aplica sobre tu <strong>reparto real</strong> (con fijos incluidos), no solo sobre los porcentajes.</p>
+  </div>
+
+  <h2 id="p5"><span class="fila-paso"><span class="paso">5</span> Plan de evolución (llegar al ideal de a poco)</span></h2>
+  <div class="tarjeta">
+    <ul>
+      <li>Movés el <strong>slider</strong> “Llegar al ideal en N meses” (de 3 a 12).</li>
+      <li>Ves una <strong>línea de tiempo</strong>: la fila <strong>Hoy</strong> es tu reparto real (incluye montos fijos, por eso aparece el azul de Necesidades), y cada “Mes 1, Mes 2…” se acerca al <strong>ideal 50/30/20</strong>.</li>
+      <li>Cada toque de <strong>“Aplicar próximo paso”</strong> avanza <strong>un mes exacto</strong>: con el slider en 6, <strong>6 toques</strong> te dejan justo en 50/30/20.</li>
+      <li>Al aplicar un paso, ves el <strong>cambio</strong> en cada categoría: <span style="color:#059669;font-weight:700">+5 pt</span> en verde si sube y <span style="color:#dc2626;font-weight:700">-3 pt</span> en rojo si baja, junto con el mismo <strong>+/- en el monto</strong> (tanto en Resultado como en Ajustar).</li>
+      <li>Si un grupo tiene <strong>montos fijos altísimos</strong> (por encima del ideal), la app te avisa que no puede bajarlo solo con porcentajes. ⚠️</li>
+    </ul>
+    <p class="nota">“pt” = puntos porcentuales. Si editás algo a mano, el plan se reinicia y los +/- se limpian.</p>
+  </div>
+
+  <h2 id="p6"><span class="fila-paso"><span class="paso">6</span> El Consejero</span></h2>
+  <div class="tarjeta">
+    <p>Elegís un <strong>objetivo</strong> (Gastador / Equilibrado / Conservador / Cauto) y el Consejero compara tu reparto con ese objetivo y te dice, <strong>categoría por categoría</strong>, dónde recortar y cuánto, en pesos. Los consejos salen del nombre de la categoría, así que funcionan con las tuyas también (<em>alquiler, delivery, suscripciones, deudas…</em>).</p>
+    <p class="nota">En <strong>ahorro nunca te dice que recortes</strong>: ahorrar de más nunca es un problema. Si ya cumplís el objetivo, te felicita. 💪</p>
+  </div>
+
+  <h2 id="p7"><span class="fila-paso"><span class="paso">7</span> Historial financiero</span></h2>
+  <div class="tarjeta">
+    <ul>
+      <li><strong>📅 Guardar este mes</strong> (en el resultado) registra el mes con su ingreso, torta, subtotales y perfil.</li>
+      <li>El panel <strong>Historial</strong> (siempre visible a la izquierda, o pestaña 📅 en el celular) muestra un <strong>calendario</strong> con los 12 meses del año. Los meses con datos se resaltan; tocás uno y ves el detalle. El monto del mes va <strong>abreviado</strong> (ej. <span class="kbd">1.2M</span>, <span class="kbd">850K</span>) para que entre prolijo; en el detalle lo ves completo.</li>
+      <li>Abajo, el gráfico <strong>Evolución del ahorro</strong> compara tu % de ahorro mes a mes contra la línea del ideal (20%).</li>
+      <li>Cambiás de año con las flechas <span class="kbd">←</span> <span class="kbd">→</span>.</li>
+    </ul>
+    <p class="nota">El historial se guarda en <strong>este dispositivo</strong> y no viaja en el enlace compartido.</p>
+  </div>
+
+  <h2 id="p8"><span class="fila-paso"><span class="paso">8</span> Compartir y exportar</span></h2>
+  <div class="tarjeta">
+    <ul>
+      <li><strong>📸 Descargar imagen (PNG)</strong>: baja una tarjeta con tu reparto, ideal para mandar por WhatsApp.</li>
+      <li><strong>🔗 Enlace para otro dispositivo</strong>: genera un enlace que codifica tu configuración. Al abrirlo en otro celular o PC, la app ofrece usarla.</li>
+    </ul>
+    <p class="nota">Están en <strong>⚙️ Tus datos</strong> (pantalla de ingreso).</p>
+  </div>
+
+  <h2 id="historia">🅰️ La historia de Ana (ejemplo de 12 meses)</h2>
+  <div class="tarjeta">
+    <p>Ana arranca en enero gastando mucho y ahorrando poco (<strong>Gastador 60/30/10</strong>) y, mes a mes, mejora su reparto hasta llegar a <strong>Equilibrado 50/30/20</strong> en diciembre. Su ingreso también sube con las paritarias. Esto es lo que vas a ver en el calendario del Historial:</p>
+    <div class="tabla-scroll">
+      <table id="tabla-historia">
+        <thead><tr><th>Mes</th><th>Ingreso</th><th>Nec.</th><th>Deseos</th><th>Ahorro</th><th>Perfil</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <h3>Evolución del ahorro</h3>
+    <div id="mini-evolucion"></div>
+    <p class="nota">La línea gris punteada marca el ideal del 20%.</p>
+
+    <div class="botones">
+      <button id="btn-probar" class="primario" type="button">▶️ Probar con el ejemplo</button>
+      <a class="btn" href="index.html">Abrir la app</a>
+      <button id="btn-borrar" type="button">🧹 Borrar ejemplo</button>
+    </div>
+    <p id="estado-msg" class="estado-msg" role="status"></p>
+
+    <div class="aviso">
+      <strong>Cómo se abre:</strong> el botón carga los 12 meses en este navegador (localStorage) y abre la app. Andá al panel <strong>📅 Historial</strong> y vas a ver el año completo.
+      <br>Importante: la app y este tutorial tienen que estar en el <strong>mismo origen</strong>. Lo más seguro es abrir el sitio publicado, o servirlo localmente con <span class="kbd">python -m http.server</span>. Con doble clic (<span class="kbd">file://</span>) algunos navegadores aíslan los datos.
+    </div>
+  </div>
+
+  <footer>
+    GastaMejor — prototipo local · <a href="pruebas.html">Ver las pruebas</a>
+  </footer>
+</div>
+
+<script src="datos-ejemplo.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+  var lista = window.EJEMPLO_PROGRESO || [];
+  var cont = document.querySelector("#tabla-historia tbody");
+  var fmt = function (n) {
+    return new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(n);
+  };
+
+  lista.forEach(function (r) {
+    var tr = document.createElement("tr");
+    tr.innerHTML =
+      "<td><strong>" + esc(meses[Number(r.mes.slice(5, 7)) - 1]) + "</strong></td>" +
+      "<td>" + esc(fmt(r.monto)) + "</td>" +
+      "<td>" + r.pctGrupos.necesidad + "%</td>" +
+      "<td>" + r.pctGrupos.deseo + "%</td>" +
+      "<td>" + r.pctGrupos.ahorro + "%</td>" +
+      "<td>" + esc(r.perfil || "—") + "</td>";
+    cont.appendChild(tr);
+  });
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  /* Mini gráfico de barras: % de ahorro por mes + línea del ideal. */
+  (function dibujar() {
+    if (!lista.length) return;
+    var W = 680, H = 220, ml = 34, mr = 16, mt = 16, mb = 34;
+    var anchoUtil = W - ml - mr;
+    var altoUtil = H - mt - mb;
+    var maxY = 25;
+    var paso = anchoUtil / lista.length;
+    var anchoBarra = Math.min(40, paso * 0.6);
+    var barras = "";
+    lista.forEach(function (r, i) {
+      var pct = Math.max(0, Math.min(maxY, r.pctGrupos.ahorro));
+      var h = (pct / maxY) * altoUtil;
+      var x = ml + i * paso + (paso - anchoBarra) / 2;
+      var y = mt + altoUtil - h;
+      barras += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + anchoBarra.toFixed(1) +
+        '" height="' + h.toFixed(1) + '" rx="5" fill="#10b981"></rect>';
+      barras += '<text x="' + (x + anchoBarra / 2).toFixed(1) + '" y="' + (y - 5).toFixed(1) +
+        '" text-anchor="middle" font-size="12" fill="#065f46">' + pct + "%</text>";
+      barras += '<text x="' + (x + anchoBarra / 2).toFixed(1) + '" y="' + (H - mb + 18) +
+        '" text-anchor="middle" font-size="12" fill="#64748b">' + meses[i] + "</text>";
+    });
+    var yIdeal = mt + altoUtil - (20 / maxY) * altoUtil;
+    var linea = '<line x1="' + ml + '" y1="' + yIdeal.toFixed(1) + '" x2="' + (W - mr) + '" y2="' + yIdeal.toFixed(1) +
+      '" stroke="#94a3b8" stroke-dasharray="5 4"></line>' +
+      '<text x="' + (W - mr) + '" y="' + (yIdeal - 5).toFixed(1) + '" text-anchor="end" font-size="12" fill="#64748b">ideal 20%</text>';
+    document.querySelector("#mini-evolucion").innerHTML =
+      '<svg class="mini" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Evolución del ahorro mes a mes">' + linea + barras + "</svg>";
+  })();
+
+  var msg = document.querySelector("#estado-msg");
+  document.querySelector("#btn-probar").addEventListener("click", function () {
+    var n = typeof window.cargarEjemplo === "function" ? window.cargarEjemplo() : 0;
+    msg.textContent = "✅ Ejemplo cargado (" + n + " meses). Abriendo la app…";
+    setTimeout(function () { window.location.href = "index.html"; }, 700);
+  });
+  document.querySelector("#btn-borrar").addEventListener("click", function () {
+    if (typeof window.borrarEjemplo === "function") window.borrarEjemplo();
+    msg.textContent = "🧹 Ejemplo borrado de este navegador.";
+  });
+})();
+</script>
+</body>
+</html>
